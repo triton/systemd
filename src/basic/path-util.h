@@ -27,7 +27,7 @@
 #include "time-util.h"
 
 #define DEFAULT_PATH_NORMAL "/no-such-path"
-#define DEFAULT_PATH_SPLIT_USR DEFAULT_PATH_NORMAL ":/sbin:/bin"
+#define DEFAULT_PATH_SPLIT_USR DEFAULT_PATH_NORMAL
 
 #ifdef HAVE_SPLIT_USR
 #  define DEFAULT_PATH DEFAULT_PATH_SPLIT_USR

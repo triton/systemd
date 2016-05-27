@@ -198,7 +198,7 @@ static int add_dbus(const char *path, const char *fname, const char *type) {
                         return 0;
                 }
         } else {
-                if (streq(exec, "/bin/false") || !exec) {
+                if (streq(exec, "/run/current-system/sw/bin/false") || !exec) {
                         log_warning("Neither service name nor binary path specified, ignoring %s.", p);
                         return 0;
                 }

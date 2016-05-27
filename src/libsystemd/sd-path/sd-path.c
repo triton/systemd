@@ -225,15 +225,15 @@ static int get_path(uint64_t type, char **buffer, const char **ret) {
                 return from_environment("TMPDIR", "/var/tmp", ret);
 
         case SD_PATH_SYSTEM_BINARIES:
-                *ret = "/usr/bin";
+                *ret = "/run/current-system/sw/bin";
                 return 0;
 
         case SD_PATH_SYSTEM_INCLUDE:
-                *ret = "/usr/include";
+                *ret = "/no-such-path/include";
                 return 0;
 
         case SD_PATH_SYSTEM_LIBRARY_PRIVATE:
-                *ret = "/usr/lib";
+                *ret = "/no-such-path/lib";
                 return 0;
 
         case SD_PATH_SYSTEM_LIBRARY_ARCH:
@@ -241,15 +241,15 @@ static int get_path(uint64_t type, char **buffer, const char **ret) {
                 return 0;
 
         case SD_PATH_SYSTEM_SHARED:
-                *ret = "/usr/share";
+                *ret = "/run/current-system/sw/share";
                 return 0;
 
         case SD_PATH_SYSTEM_CONFIGURATION_FACTORY:
-                *ret = "/usr/share/factory/etc";
+                *ret = "/run/current-system/sw/share/factory/etc";
                 return 0;
 
         case SD_PATH_SYSTEM_STATE_FACTORY:
-                *ret = "/usr/share/factory/var";
+                *ret = "/run/current-system/sw/share/factory/var";
                 return 0;
 
         case SD_PATH_SYSTEM_CONFIGURATION:
@@ -488,14 +488,7 @@ static int get_search(uint64_t type, char ***list) {
                                                ".local/bin",
                                                "PATH",
                                                true,
-                                               "/usr/local/sbin",
-                                               "/usr/local/bin",
-                                               "/usr/sbin",
-                                               "/usr/bin",
-#ifdef HAVE_SPLIT_USR
-                                               "/sbin",
-                                               "/bin",
-#endif
+                                               "/run/current-system/sw/bin",
                                                NULL);
 
         case SD_PATH_SEARCH_LIBRARY_PRIVATE:
@@ -504,11 +497,6 @@ static int get_search(uint64_t type, char ***list) {
                                                ".local/lib",
                                                NULL,
                                                false,
-                                               "/usr/local/lib",
-                                               "/usr/lib",
-#ifdef HAVE_SPLIT_USR
-                                               "/lib",
-#endif
                                                NULL);
 
         case SD_PATH_SEARCH_LIBRARY_ARCH:
@@ -529,8 +517,7 @@ static int get_search(uint64_t type, char ***list) {
                                                ".local/share",
                                                "XDG_DATA_DIRS",
                                                false,
-                                               "/usr/local/share",
-                                               "/usr/share",
+                                               "/run/current-system/sw/share",
                                                NULL);
 
         case SD_PATH_SEARCH_CONFIGURATION_FACTORY:
@@ -539,8 +526,7 @@ static int get_search(uint64_t type, char ***list) {
                                                NULL,
                                                NULL,
                                                false,
-                                               "/usr/local/share/factory/etc",
-                                               "/usr/share/factory/etc",
+                                               "/run/current-system/sw/share/factory/etc",
                                                NULL);
 
         case SD_PATH_SEARCH_STATE_FACTORY:
@@ -549,8 +535,7 @@ static int get_search(uint64_t type, char ***list) {
                                                NULL,
                                                NULL,
                                                false,
-                                               "/usr/local/share/factory/var",
-                                               "/usr/share/factory/var",
+                                               "/run/current-system/sw/share/factory/var",
                                                NULL);
 
         case SD_PATH_SEARCH_CONFIGURATION:

@@ -7,6 +7,6 @@
 
 [D-BUS Service]
 Name=org.freedesktop.machine1
-Exec=/bin/false
+Exec=/run/current-system/sw/bin/false
 User=root
 SystemdService=dbus-org.freedesktop.machine1.service
