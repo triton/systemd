@@ -59,7 +59,7 @@ Description=Fail on restart
 
 [Service]
 Type=simple
-ExecStart=/bin/false
+ExecStart=/run/current-system/sw/bin/false
 Restart=always
 EOF
 
