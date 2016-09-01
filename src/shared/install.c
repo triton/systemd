@@ -261,14 +261,6 @@ static int path_is_vendor(const LookupPaths *p, const char *path) {
         if (!rpath)
                 return 0;
 
-        if (path_startswith(rpath, "/usr"))
-                return true;
-
-#ifdef HAVE_SPLIT_USR
-        if (path_startswith(rpath, "/lib"))
-                return true;
-#endif
-
         return path_equal(rpath, SYSTEM_DATA_UNIT_PATH);
 }
 
@@ -2502,17 +2494,12 @@ static int read_presets(UnitFileScope scope, const char *root_dir, Presets *pres
         if (scope == UNIT_FILE_SYSTEM)
                 r = conf_files_list(&files, ".preset", root_dir,
                                     "/etc/systemd/system-preset",
-                                    "/usr/local/lib/systemd/system-preset",
-                                    "/usr/lib/systemd/system-preset",
-#ifdef HAVE_SPLIT_USR
-                                    "/lib/systemd/system-preset",
-#endif
+                                    "/run/current-system/sw/lib/systemd/system-preset",
                                     NULL);
         else if (scope == UNIT_FILE_GLOBAL)
                 r = conf_files_list(&files, ".preset", root_dir,
                                     "/etc/systemd/user-preset",
-                                    "/usr/local/lib/systemd/user-preset",
-                                    "/usr/lib/systemd/user-preset",
+                                    "/run/current-system/sw/lib/systemd/user-preset",
                                     NULL);
         else {
                 *presets = (Presets){};

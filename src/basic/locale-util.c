@@ -84,7 +84,7 @@ static int add_locales_from_archive(Set *locales) {
         unsigned i;
         int r;
 
-        fd = open("/usr/lib/locale/locale-archive", O_RDONLY|O_NOCTTY|O_CLOEXEC);
+        fd = open("/run/current-system/sw/lib/locale/locale-archive", O_RDONLY|O_NOCTTY|O_CLOEXEC);
         if (fd < 0)
                 return errno == ENOENT ? 0 : -errno;
 
@@ -146,7 +146,7 @@ static int add_locales_from_libdir (Set *locales) {
         struct dirent *entry;
         int r;
 
-        dir = opendir("/usr/lib/locale");
+        dir = opendir("/run/current-system/sw/lib/locale");
         if (!dir)
                 return errno == ENOENT ? 0 : -errno;
 

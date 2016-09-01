@@ -980,7 +980,7 @@ static int process_kernel(int argc, char* argv[]) {
                 /* If this is PID 1 disable coredump collection, we'll unlikely be able to process it later on. */
                 if (streq(t, SPECIAL_INIT_SCOPE)) {
                         log_notice("Due to PID 1 having crashed coredump collection will now be turned off.");
-                        (void) write_string_file("/proc/sys/kernel/core_pattern", "|/bin/false", 0);
+                        (void) write_string_file("/proc/sys/kernel/core_pattern", "|/run/current-system/sw/bin/false", 0);
                 }
 
                 /* Let's avoid dead-locks when processing journald and init crashes, as socket activation and logging
