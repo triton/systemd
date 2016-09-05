@@ -46,7 +46,7 @@
 const char* const network_dirs[] = {
         "/etc/systemd/network",
         "/run/systemd/network",
-        "/run/current-system/sw/lib/systemd/network"
+        "/run/current-system/sw/lib/systemd/network",
         NULL};
 
 static int setup_default_address_pool(Manager *m) {
