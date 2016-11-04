@@ -33,7 +33,7 @@
 #endif
 
 #ifndef RC_LOCAL_SCRIPT_PATH_STOP
-#define RC_LOCAL_SCRIPT_PATH_STOP "/sbin/halt.local"
+#define RC_LOCAL_SCRIPT_PATH_STOP "/run/current-system/sw/bin/halt.local"
 #endif
 
 static const char *arg_dest = "/tmp";

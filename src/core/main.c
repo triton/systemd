@@ -1251,11 +1251,6 @@ static int status_welcome(void) {
                            "PRETTY_NAME", &pretty_name,
                            "ANSI_COLOR", &ansi_color,
                            NULL);
-        if (r == -ENOENT)
-                r = parse_env_file("/usr/lib/os-release", NEWLINE,
-                                   "PRETTY_NAME", &pretty_name,
-                                   "ANSI_COLOR", &ansi_color,
-                                   NULL);
 
         if (r < 0 && r != -ENOENT)
                 log_warning_errno(r, "Failed to read os-release file: %m");
@@ -1543,7 +1538,7 @@ int main(int argc, char *argv[]) {
                 /* But at the same time, turn off the core_pattern logic by default, so that no coredumps are stored
                  * until the systemd-coredump tool is enabled via sysctl. */
                 if (!skip_setup)
-                        (void) write_string_file("/proc/sys/kernel/core_pattern", "|/bin/false", 0);
+                        (void) write_string_file("/proc/sys/kernel/core_pattern", "|/run/current-system/sw/bin/false", 0);
         }
 
         if (arg_system) {
@@ -2119,18 +2114,18 @@ finish:
                         log_warning_errno(errno, "Failed to execute configured init, trying fallback: %m");
                 }
 
-                args[0] = "/sbin/init";
+                args[0] = "/no-such-path/init";
                 (void) execv(args[0], (char* const*) args);
 
                 if (errno == ENOENT) {
-                        log_warning("No /sbin/init, trying fallback");
+                        log_warning("No /no-such-path/init, trying fallback");
 
                         args[0] = "/bin/sh";
                         args[1] = NULL;
                         (void) execv(args[0], (char* const*) args);
                         log_error_errno(errno, "Failed to execute /bin/sh, giving up: %m");
                 } else
-                        log_warning_errno(errno, "Failed to execute /sbin/init, giving up: %m");
+                        log_warning_errno(errno, "Failed to execute /no-such-path/init, giving up: %m");
         }
 
         arg_serialization = safe_fclose(arg_serialization);

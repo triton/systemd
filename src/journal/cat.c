@@ -145,7 +145,7 @@ int main(int argc, char *argv[]) {
         fd = -1;
 
         if (argc <= optind)
-                (void) execl("/bin/cat", "/bin/cat", NULL);
+                (void) execl("/run/current-system/sw/bin/cat", "/run/current-system/sw/bin/cat", NULL);
         else
                 (void) execvp(argv[optind], argv + optind);
         r = -errno;

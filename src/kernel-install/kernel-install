@@ -106,8 +106,7 @@ ret=0
 
 readarray -t PLUGINS <<<"$(
     dropindirs_sort ".install" \
-        "/etc/kernel/install.d" \
-        "/usr/lib/kernel/install.d"
+        "/etc/kernel/install.d"
 )"
 
 case $COMMAND in

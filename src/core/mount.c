@@ -418,8 +418,8 @@ static bool mount_is_extrinsic(Mount *m) {
 
         if (PATH_IN_SET(m->where,  /* Don't bother with the OS data itself */
                         "/",
-						"/nix",
-						"/nix/store",
+                        "/nix",
+                        "/nix/store",
                         "/usr"))
                 return true;
 

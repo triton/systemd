@@ -403,11 +403,8 @@ int bus_machine_method_get_os_release(sd_bus_message *message, void *userdata, s
                                 _exit(EXIT_FAILURE);
 
                         fd = open("/etc/os-release", O_RDONLY|O_CLOEXEC|O_NOCTTY);
-                        if (fd < 0 && errno == ENOENT) {
-                                fd = open("/usr/lib/os-release", O_RDONLY|O_CLOEXEC|O_NOCTTY);
-                                if (fd < 0 && errno == ENOENT)
-                                        _exit(EXIT_NOT_FOUND);
-                        }
+                        if (fd < 0 && errno == ENOENT)
+                               _exit(EXIT_NOT_FOUND);
                         if (fd < 0)
                                 _exit(EXIT_FAILURE);
 

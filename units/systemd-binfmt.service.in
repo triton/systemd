@@ -14,9 +14,7 @@ Conflicts=shutdown.target
 After=proc-sys-fs-binfmt_misc.automount
 Before=sysinit.target shutdown.target
 ConditionPathIsReadWrite=/proc/sys/
-ConditionDirectoryNotEmpty=|/lib/binfmt.d
-ConditionDirectoryNotEmpty=|/usr/lib/binfmt.d
-ConditionDirectoryNotEmpty=|/usr/local/lib/binfmt.d
+ConditionDirectoryNotEmpty=|/run/current-system/sw/lib/binfmt.d
 ConditionDirectoryNotEmpty=|/etc/binfmt.d
 ConditionDirectoryNotEmpty=|/run/binfmt.d
 

@@ -45,13 +45,7 @@
 static const char prefixes[] =
         "/etc\0"
         "/run\0"
-        "/usr/local/lib\0"
-        "/usr/local/share\0"
-        "/usr/lib\0"
-        "/usr/share\0"
-#ifdef HAVE_SPLIT_USR
-        "/lib\0"
-#endif
+        "/run/current-software/sw/lib\0"
         ;
 
 static const char suffixes[] =

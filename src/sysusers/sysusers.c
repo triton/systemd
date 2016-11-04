@@ -599,7 +599,7 @@ static int write_files(void) {
                                 /* Initialize the shell to nologin,
                                  * with one exception: for root we
                                  * patch in something special */
-                                .pw_shell = i->uid == 0 ? (char*) "/bin/sh" : (char*) "/sbin/nologin",
+                                .pw_shell = i->uid == 0 ? (char*) "/run/current-system/sw/bin/sh" : (char*) "/run/current-system/sw/bin/nologin",
                         };
 
                         errno = 0;

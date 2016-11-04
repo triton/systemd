@@ -172,7 +172,9 @@ static bool mount_in_initrd(struct mntent *me) {
         assert(me);
 
         return fstab_test_option(me->mnt_opts, "x-initrd.mount\0") ||
-               streq(me->mnt_dir, "/usr");
+               streq(me->mnt_dir, "/usr") ||
+               streq(me->mnt_dir, "/nix") ||
+               streq(me->mnt_dir, "/nix/store");
 }
 
 static int write_timeout(FILE *f, const char *where, const char *opts,

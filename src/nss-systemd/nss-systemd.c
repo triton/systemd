@@ -50,7 +50,7 @@ static const struct passwd nobody_passwd = {
         .pw_gid = 65534,
         .pw_gecos = (char*) "User Nobody",
         .pw_dir = (char*) "/",
-        .pw_shell = (char*) "/sbin/nologin",
+        .pw_shell = (char*) "/run/current-system/sw/bin/nologin",
 };
 
 static const struct group root_group = {
@@ -197,7 +197,7 @@ enum nss_status _nss_systemd_getpwnam_r(
         pwd->pw_gecos = (char*) "Dynamic User";
         pwd->pw_passwd = (char*) "*"; /* locked */
         pwd->pw_dir = (char*) "/";
-        pwd->pw_shell = (char*) "/sbin/nologin";
+        pwd->pw_shell = (char*) "/run/current-system/sw/bin/nologin";
 
         *errnop = 0;
         return NSS_STATUS_SUCCESS;
@@ -298,7 +298,7 @@ enum nss_status _nss_systemd_getpwuid_r(
         pwd->pw_gecos = (char*) "Dynamic User";
         pwd->pw_passwd = (char*) "*"; /* locked */
         pwd->pw_dir = (char*) "/";
-        pwd->pw_shell = (char*) "/sbin/nologin";
+        pwd->pw_shell = (char*) "/run/current-system/sw/bin/nologin";
 
         *errnop = 0;
         return NSS_STATUS_SUCCESS;

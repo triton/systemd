@@ -577,8 +577,7 @@ static int binary_is_good(const char *binary) {
                 return r;
 
         return !PATH_IN_SET(d, "true"
-                               "/bin/true",
-                               "/usr/bin/true",
+                               "/run/current-system/sw/bin/true",
                                "/dev/null");
 }
 

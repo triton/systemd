@@ -128,6 +128,7 @@ static const MountEntry protect_home_yes_table[] = {
 
 /* ProtectSystem=yes table */
 static const MountEntry protect_system_yes_table[] = {
+        { "/nix/store",          READONLY,     true  },
         { "/usr",                READONLY,     false },
         { "/boot",               READONLY,     true  },
         { "/efi",                READONLY,     true  },
@@ -135,6 +136,7 @@ static const MountEntry protect_system_yes_table[] = {
 
 /* ProtectSystem=full includes ProtectSystem=yes */
 static const MountEntry protect_system_full_table[] = {
+        { "/nix/store",          READONLY,     false },
         { "/usr",                READONLY,     false },
         { "/boot",               READONLY,     true  },
         { "/efi",                READONLY,     true  },

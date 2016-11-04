@@ -154,15 +154,10 @@ int path_is_os_tree(const char *path) {
         if (laccess(path, F_OK) < 0)
                 return -errno;
 
-        /* We use /usr/lib/os-release as flag file if something is an OS */
-        r = chase_symlinks("/usr/lib/os-release", path, CHASE_PREFIX_ROOT, NULL);
-        if (r == -ENOENT) {
-
-                /* Also check for the old location in /etc, just in case. */
-                r = chase_symlinks("/etc/os-release", path, CHASE_PREFIX_ROOT, NULL);
-                if (r == -ENOENT)
-                        return 0; /* We got nothing */
-        }
+        /* Also check for the old location in /etc, just in case. */
+        r = chase_symlinks("/etc/os-release", path, CHASE_PREFIX_ROOT, NULL);
+        if (r == -ENOENT)
+                return 0; /* We got nothing */
         if (r < 0)
                 return r;
 

@@ -85,13 +85,6 @@ static void print_welcome(void) {
         r = parse_env_file(os_release, NEWLINE,
                            "PRETTY_NAME", &pretty_name,
                            NULL);
-        if (r == -ENOENT) {
-
-                os_release = prefix_roota(arg_root, "/usr/lib/os-release");
-                r = parse_env_file(os_release, NEWLINE,
-                                   "PRETTY_NAME", &pretty_name,
-                                   NULL);
-        }
 
         if (r < 0 && r != -ENOENT)
                 log_warning_errno(r, "Failed to read os-release file: %m");

@@ -3015,16 +3015,16 @@ static bool generator_path_any(const char* const* paths) {
 }
 
 static const char* system_env_generator_binary_paths[] = {
-        "/run/systemd/system-environment-generators",
         "/etc/systemd/system-environment-generators",
+        "/run/systemd/system-environment-generators",
         "/usr/local/lib/systemd/system-environment-generators",
         SYSTEM_ENV_GENERATOR_PATH,
         NULL
 };
 
 static const char* user_env_generator_binary_paths[] = {
-        "/run/systemd/user-environment-generators",
         "/etc/systemd/user-environment-generators",
+        "/run/systemd/user-environment-generators",
         "/usr/local/lib/systemd/user-environment-generators",
         USER_ENV_GENERATOR_PATH,
         NULL

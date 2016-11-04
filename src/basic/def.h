@@ -43,18 +43,8 @@
 #define SIGNALS_CRASH_HANDLER SIGSEGV,SIGILL,SIGFPE,SIGBUS,SIGQUIT,SIGABRT
 #define SIGNALS_IGNORE SIGPIPE
 
-#ifdef HAVE_SPLIT_USR
-#define KBD_KEYMAP_DIRS                         \
-        "/usr/share/keymaps/\0"                 \
-        "/usr/share/kbd/keymaps/\0"             \
-        "/usr/lib/kbd/keymaps/\0"               \
-        "/lib/kbd/keymaps/\0"
-#else
-#define KBD_KEYMAP_DIRS                         \
-        "/usr/share/keymaps/\0"                 \
-        "/usr/share/kbd/keymaps/\0"             \
-        "/usr/lib/kbd/keymaps/\0"
-#endif
+#define KBD_KEYMAP_DIRS                           \
+        "/run/current-system/sw/share/keymaps/\0"
 
 #define UNIX_SYSTEM_BUS_ADDRESS "unix:path=/var/run/dbus/system_bus_socket"
 #define KERNEL_SYSTEM_BUS_ADDRESS "kernel:path=/sys/fs/kdbus/0-system/bus"
@@ -74,11 +64,7 @@
 #define NOTIFY_FD_MAX 768
 #define NOTIFY_BUFFER_MAX PIPE_BUF
 
-#ifdef HAVE_SPLIT_USR
-#  define _CONF_PATHS_SPLIT_USR(n) "/lib/" n "\0"
-#else
-#  define _CONF_PATHS_SPLIT_USR(n)
-#endif
+#define _CONF_PATHS_SPLIT_USR(n)
 
 /* Return a nulstr for a standard cascade of configuration paths,
  * suitable to pass to conf_files_list_nulstr() or config_parse_many_nulstr()
@@ -87,6 +73,5 @@
 #define CONF_PATHS_NULSTR(n)                    \
         "/etc/" n "\0"                          \
         "/run/" n "\0"                          \
-        "/usr/local/lib/" n "\0"                \
-        "/usr/lib/" n "\0"                      \
+        "/run/current-system/sw/lib/" n "\0"    \
         _CONF_PATHS_SPLIT_USR(n)

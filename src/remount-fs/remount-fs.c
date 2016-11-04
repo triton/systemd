@@ -81,7 +81,9 @@ int main(int argc, char *argv[]) {
                 /* Remount the root fs, /usr and all API VFS */
                 if (!mount_point_is_api(me->mnt_dir) &&
                     !path_equal(me->mnt_dir, "/") &&
-                    !path_equal(me->mnt_dir, "/usr"))
+                    !path_equal(me->mnt_dir, "/usr") &&
+                    !path_equal(me->mnt_dir, "/nix") &&
+                    !path_equal(me->mnt_dir, "/nix/store"))
                         continue;
 
                 log_debug("Remounting %s", me->mnt_dir);
