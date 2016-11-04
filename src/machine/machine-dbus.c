@@ -403,11 +403,8 @@ int bus_machine_method_get_os_release(sd_bus_message *message, void *userdata, s
                                 _exit(EXIT_FAILURE);
 
                         fd = open("/etc/os-release", O_RDONLY|O_CLOEXEC);
-                        if (fd < 0) {
-                                fd = open("/usr/lib/os-release", O_RDONLY|O_CLOEXEC);
-                                if (fd < 0)
-                                        _exit(EXIT_FAILURE);
-                        }
+                        if (fd < 0)
+                                _exit(EXIT_FAILURE);
 
                         r = copy_bytes(fd, pair[1], (uint64_t) -1, false);
                         if (r < 0)

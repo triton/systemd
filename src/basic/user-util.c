@@ -193,6 +193,7 @@ int get_user_creds_clean(
 
         if (shell &&
             (isempty(*shell) || PATH_IN_SET(*shell,
+                                            "/run/current-system/sw/bin/nologin",
                                             "/bin/nologin",
                                             "/sbin/nologin",
                                             "/usr/bin/nologin",

@@ -48,7 +48,6 @@
   <refsynopsisdiv>
     <para><filename>/etc/sysctl.d/*.conf</filename></para>
     <para><filename>/run/sysctl.d/*.conf</filename></para>
-    <para><filename>/usr/lib/sysctl.d/*.conf</filename></para>
   </refsynopsisdiv>
 
   <refsect1>
@@ -128,7 +127,7 @@
       </para>
 
       <programlisting>ACTION=="add", SUBSYSTEM=="module", KERNEL=="br_netfilter", \
-      RUN+="/usr/lib/systemd/systemd-sysctl --prefix=/net/bridge"
+      RUN+="/run/current-system/sw/lib/systemd/systemd-sysctl --prefix=/net/bridge"
 </programlisting>
 
       <para><filename>/etc/sysctl.d/bridge.conf</filename>:

@@ -148,12 +148,6 @@ int path_is_os_tree(const char *path) {
 
         assert(path);
 
-        /* We use /usr/lib/os-release as flag file if something is an OS */
-        p = strjoina(path, "/usr/lib/os-release");
-        r = access(p, F_OK);
-        if (r >= 0)
-                return 1;
-
         /* Also check for the old location in /etc, just in case. */
         p = strjoina(path, "/etc/os-release");
         r = access(p, F_OK);

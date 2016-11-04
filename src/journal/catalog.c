@@ -44,8 +44,7 @@
 #include "util.h"
 
 const char * const catalog_file_dirs[] = {
-        "/usr/local/lib/systemd/catalog/",
-        "/usr/lib/systemd/catalog/",
+        "/run/current-system/sw/lib/systemd/catalog/",
         NULL
 };
 
