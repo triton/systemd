@@ -446,7 +446,7 @@ static int write_temporary_passwd(const char *passwd_path, FILE **tmpfile, char 
 
                         /* Initialize the shell to nologin, with one exception:
                          * for root we patch in something special */
-                        .pw_shell = i->uid == 0 ? (char*) "/bin/sh" : (char*) "/sbin/nologin",
+                        .pw_shell = i->uid == 0 ? (char*) NIX_SYSTEM_SW "/bin/sh" : (char*) NIX_SYSTEM_SW "/bin/nologin",
                 };
 
                 errno = 0;

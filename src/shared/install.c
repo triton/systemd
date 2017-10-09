@@ -32,6 +32,7 @@
 #include "alloc-util.h"
 #include "conf-files.h"
 #include "conf-parser.h"
+#include "def.h"
 #include "dirent-util.h"
 #include "extract-word.h"
 #include "fd-util.h"
@@ -2737,17 +2738,14 @@ static int read_presets(UnitFileScope scope, const char *root_dir, Presets *pres
         if (scope == UNIT_FILE_SYSTEM)
                 r = conf_files_list(&files, ".preset", root_dir, 0,
                                     "/etc/systemd/system-preset",
-                                    "/usr/local/lib/systemd/system-preset",
-                                    "/usr/lib/systemd/system-preset",
-#if HAVE_SPLIT_USR
-                                    "/lib/systemd/system-preset",
-#endif
+                                    "/etc/systemd-mutable/system-preset",
+                                    NIX_SYSTEMD_MODULE "/lib/systemd/system-preset",
                                     NULL);
         else if (scope == UNIT_FILE_GLOBAL)
                 r = conf_files_list(&files, ".preset", root_dir, 0,
                                     "/etc/systemd/user-preset",
-                                    "/usr/local/lib/systemd/user-preset",
-                                    "/usr/lib/systemd/user-preset",
+                                    "/etc/systemd-mutable/user-preset",
+                                    NIX_SYSTEMD_MODULE "/lib/systemd/user-preset",
                                     NULL);
         else {
                 *presets = (Presets){};

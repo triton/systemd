@@ -34,6 +34,7 @@
 #include "bus-label.h"
 #include "bus-util.h"
 #include "copy.h"
+#include "def.h"
 #include "env-util.h"
 #include "fd-util.h"
 #include "fileio.h"
@@ -404,7 +405,7 @@ int bus_machine_method_get_os_release(sd_bus_message *message, void *userdata, s
 
                         fd = open("/etc/os-release", O_RDONLY|O_CLOEXEC|O_NOCTTY);
                         if (fd < 0 && errno == ENOENT) {
-                                fd = open("/usr/lib/os-release", O_RDONLY|O_CLOEXEC|O_NOCTTY);
+                                fd = open(NIX_OS_RELEASE, O_RDONLY|O_CLOEXEC|O_NOCTTY);
                                 if (fd < 0 && errno == ENOENT)
                                         _exit(EXIT_NOT_FOUND);
                         }

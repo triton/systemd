@@ -1286,7 +1286,7 @@ static int status_welcome(void) {
                            "ANSI_COLOR", &ansi_color,
                            NULL);
         if (r == -ENOENT)
-                r = parse_env_file("/usr/lib/os-release", NEWLINE,
+                r = parse_env_file(NIX_OS_RELEASE, NEWLINE,
                                    "PRETTY_NAME", &pretty_name,
                                    "ANSI_COLOR", &ansi_color,
                                    NULL);

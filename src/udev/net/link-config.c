@@ -24,6 +24,7 @@
 #include "alloc-util.h"
 #include "conf-files.h"
 #include "conf-parser.h"
+#include "def.h"
 #include "ethtool-util.h"
 #include "fd-util.h"
 #include "libudev-private.h"
@@ -56,11 +57,9 @@ struct link_config_ctx {
 
 static const char* const link_dirs[] = {
         "/etc/systemd/network",
+        "/etc/systemd-mutable/network",
         "/run/systemd/network",
-        "/usr/lib/systemd/network",
-#if HAVE_SPLIT_USR
-        "/lib/systemd/network",
-#endif
+        NIX_SYSTEMD_MODULE "/lib/systemd/network",
         NULL};
 
 static void link_config_free(link_config *link) {

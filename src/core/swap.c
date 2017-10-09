@@ -26,6 +26,7 @@
 
 #include "alloc-util.h"
 #include "dbus-swap.h"
+#include "def.h"
 #include "escape.h"
 #include "exit-status.h"
 #include "fd-util.h"
@@ -762,7 +763,7 @@ static void swap_enter_activating(Swap *s) {
                 }
         }
 
-        r = exec_command_set(s->control_command, "/sbin/swapon", NULL);
+        r = exec_command_set(s->control_command, NIX_SYSTEM_SW "/bin/swapon", NULL);
         if (r < 0)
                 goto fail;
 
@@ -801,7 +802,7 @@ static void swap_enter_deactivating(Swap *s) {
         s->control_command = s->exec_command + SWAP_EXEC_DEACTIVATE;
 
         r = exec_command_set(s->control_command,
-                             "/sbin/swapoff",
+                             NIX_SYSTEM_SW "/bin/swapoff",
                              s->what,
                              NULL);
         if (r < 0)

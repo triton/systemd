@@ -23,6 +23,7 @@
 
 #include "alloc-util.h"
 #include "bus-common-errors.h"
+#include "def.h"
 #include "env-util.h"
 #include "fs-util.h"
 #include "macro.h"
@@ -40,7 +41,7 @@ static const struct passwd root_passwd = {
         .pw_gid = 0,
         .pw_gecos = (char*) "Super User",
         .pw_dir = (char*) "/root",
-        .pw_shell = (char*) "/bin/sh",
+        .pw_shell = (char*) NIX_SYSTEM_SW "/bin/sh",
 };
 
 static const struct passwd nobody_passwd = {
@@ -50,7 +51,7 @@ static const struct passwd nobody_passwd = {
         .pw_gid = 65534,
         .pw_gecos = (char*) "User Nobody",
         .pw_dir = (char*) "/",
-        .pw_shell = (char*) "/sbin/nologin",
+        .pw_shell = (char*) NIX_SYSTEM_SW "/bin/nologin",
 };
 
 static const struct group root_group = {
@@ -203,7 +204,7 @@ direct_lookup:
         pwd->pw_gecos = (char*) "Dynamic User";
         pwd->pw_passwd = (char*) "*"; /* locked */
         pwd->pw_dir = (char*) "/";
-        pwd->pw_shell = (char*) "/sbin/nologin";
+        pwd->pw_shell = (char*) NIX_SYSTEM_SW "/bin/nologin";
 
         *errnop = 0;
         return NSS_STATUS_SUCCESS;
@@ -311,7 +312,7 @@ direct_lookup:
         pwd->pw_gecos = (char*) "Dynamic User";
         pwd->pw_passwd = (char*) "*"; /* locked */
         pwd->pw_dir = (char*) "/";
-        pwd->pw_shell = (char*) "/sbin/nologin";
+        pwd->pw_shell = (char*) NIX_SYSTEM_SW "/bin/nologin";
 
         *errnop = 0;
         return NSS_STATUS_SUCCESS;

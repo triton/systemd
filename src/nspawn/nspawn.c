@@ -55,6 +55,7 @@
 #include "capability-util.h"
 #include "cgroup-util.h"
 #include "copy.h"
+#include "def.h"
 #include "dev-setup.h"
 #include "dissect-image.h"
 #include "env-util.h"
@@ -2433,10 +2434,10 @@ static int inner_child(
                         /* If we cannot change the directory, we'll end up in /, that is expected. */
                         (void) chdir(home ?: "/root");
 
-                execle("/bin/bash", "-bash", NULL, env_use);
-                execle("/bin/sh", "-sh", NULL, env_use);
+                execle(NIX_SYSTEM_SW "/bin/bash", "-bash", NULL, env_use);
+                execle(NIX_SYSTEM_SW "/bin/sh", "-sh", NULL, env_use);
 
-                exec_target = "/bin/bash, /bin/sh";
+                exec_target = NIX_SYSTEM_SW "/bin/bash, " NIX_SYSTEM_SW "/bin/sh";
         }
 
         r = -errno;

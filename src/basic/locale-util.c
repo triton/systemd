@@ -30,6 +30,7 @@
 #include <sys/mman.h>
 #include <sys/stat.h>
 
+#include "def.h"
 #include "dirent-util.h"
 #include "fd-util.h"
 #include "hashmap.h"
@@ -84,7 +85,7 @@ static int add_locales_from_archive(Set *locales) {
         unsigned i;
         int r;
 
-        fd = open("/usr/lib/locale/locale-archive", O_RDONLY|O_NOCTTY|O_CLOEXEC);
+        fd = open(NIX_LOCALE_MODULE "/lib/locale/locale-archive", O_RDONLY|O_NOCTTY|O_CLOEXEC);
         if (fd < 0)
                 return errno == ENOENT ? 0 : -errno;
 
@@ -146,7 +147,7 @@ static int add_locales_from_libdir (Set *locales) {
         struct dirent *entry;
         int r;
 
-        dir = opendir("/usr/lib/locale");
+        dir = opendir(NIX_LOCALE_MODULE "/lib/locale");
         if (!dir)
                 return errno == ENOENT ? 0 : -errno;
 

@@ -21,6 +21,7 @@
 
 #include "alloc-util.h"
 #include "architecture.h"
+#include "def.h"
 #include "fd-util.h"
 #include "fileio.h"
 #include "fs-util.h"
@@ -226,15 +227,15 @@ static int get_path(uint64_t type, char **buffer, const char **ret) {
                 return var_tmp_dir(ret);
 
         case SD_PATH_SYSTEM_BINARIES:
-                *ret = "/usr/bin";
+                *ret = NIX_SYSTEM_SW "/bin";
                 return 0;
 
         case SD_PATH_SYSTEM_INCLUDE:
-                *ret = "/usr/include";
+                *ret = "/no-such-path/include";
                 return 0;
 
         case SD_PATH_SYSTEM_LIBRARY_PRIVATE:
-                *ret = "/usr/lib";
+                *ret = NIX_SYSTEM_SW "/lib";
                 return 0;
 
         case SD_PATH_SYSTEM_LIBRARY_ARCH:
@@ -242,15 +243,15 @@ static int get_path(uint64_t type, char **buffer, const char **ret) {
                 return 0;
 
         case SD_PATH_SYSTEM_SHARED:
-                *ret = "/usr/share";
+                *ret = NIX_SYSTEM_SW "/share";
                 return 0;
 
         case SD_PATH_SYSTEM_CONFIGURATION_FACTORY:
-                *ret = "/usr/share/factory/etc";
+                *ret = NIX_SYSTEM_SW "/share/factory/etc";
                 return 0;
 
         case SD_PATH_SYSTEM_STATE_FACTORY:
-                *ret = "/usr/share/factory/var";
+                *ret = NIX_SYSTEM_SW "/share/factory/var";
                 return 0;
 
         case SD_PATH_SYSTEM_CONFIGURATION:
@@ -489,14 +490,7 @@ static int get_search(uint64_t type, char ***list) {
                                                ".local/bin",
                                                "PATH",
                                                true,
-                                               "/usr/local/sbin",
-                                               "/usr/local/bin",
-                                               "/usr/sbin",
-                                               "/usr/bin",
-#if HAVE_SPLIT_USR
-                                               "/sbin",
-                                               "/bin",
-#endif
+                                               NIX_SYSTEM_SW "/bin",
                                                NULL);
 
         case SD_PATH_SEARCH_LIBRARY_PRIVATE:
@@ -505,11 +499,7 @@ static int get_search(uint64_t type, char ***list) {
                                                ".local/lib",
                                                NULL,
                                                false,
-                                               "/usr/local/lib",
-                                               "/usr/lib",
-#if HAVE_SPLIT_USR
-                                               "/lib",
-#endif
+                                               NIX_SYSTEM_SW "/lib",
                                                NULL);
 
         case SD_PATH_SEARCH_LIBRARY_ARCH:
@@ -530,8 +520,7 @@ static int get_search(uint64_t type, char ***list) {
                                                ".local/share",
                                                "XDG_DATA_DIRS",
                                                false,
-                                               "/usr/local/share",
-                                               "/usr/share",
+                                               NIX_SYSTEM_SW "/share",
                                                NULL);
 
         case SD_PATH_SEARCH_CONFIGURATION_FACTORY:
@@ -540,8 +529,7 @@ static int get_search(uint64_t type, char ***list) {
                                                NULL,
                                                NULL,
                                                false,
-                                               "/usr/local/share/factory/etc",
-                                               "/usr/share/factory/etc",
+                                               NIX_SYSTEM_SW "/share/factory/etc",
                                                NULL);
 
         case SD_PATH_SEARCH_STATE_FACTORY:
@@ -550,8 +538,7 @@ static int get_search(uint64_t type, char ***list) {
                                                NULL,
                                                NULL,
                                                false,
-                                               "/usr/local/share/factory/var",
-                                               "/usr/share/factory/var",
+                                               NIX_SYSTEM_SW "/share/factory/var",
                                                NULL);
 
         case SD_PATH_SEARCH_CONFIGURATION:

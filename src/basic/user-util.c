@@ -32,6 +32,7 @@
 #include <utmp.h>
 
 #include "alloc-util.h"
+#include "def.h"
 #include "fd-util.h"
 #include "fileio.h"
 #include "format-util.h"
@@ -198,7 +199,8 @@ int get_user_creds_clean(
                                             "/bin/nologin",
                                             "/sbin/nologin",
                                             "/usr/bin/nologin",
-                                            "/usr/sbin/nologin")))
+                                            "/usr/sbin/nologin",
+                                            NIX_SYSTEM_SW "/bin/nologin")))
                 *shell = NULL;
 
         if (home &&

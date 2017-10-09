@@ -26,6 +26,7 @@
 #include <sys/statvfs.h>
 #include <unistd.h>
 
+#include "def.h"
 #include "dirent-util.h"
 #include "fd-util.h"
 #include "fs-util.h"
@@ -155,7 +156,7 @@ int path_is_os_tree(const char *path) {
                 return -errno;
 
         /* We use /usr/lib/os-release as flag file if something is an OS */
-        r = chase_symlinks("/usr/lib/os-release", path, CHASE_PREFIX_ROOT, NULL);
+        r = chase_symlinks(NIX_OS_RELEASE, path, CHASE_PREFIX_ROOT, NULL);
         if (r == -ENOENT) {
 
                 /* Also check for the old location in /etc, just in case. */

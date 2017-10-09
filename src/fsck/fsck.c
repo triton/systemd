@@ -34,6 +34,7 @@
 #include "bus-common-errors.h"
 #include "bus-error.h"
 #include "bus-util.h"
+#include "def.h"
 #include "device-util.h"
 #include "fd-util.h"
 #include "fs-util.h"
@@ -423,7 +424,7 @@ int main(int argc, char *argv[]) {
                 } else
                         dash_c[0] = 0;
 
-                cmdline[i++] = "/sbin/fsck";
+                cmdline[i++] = NIX_SYSTEM_SW "/bin/fsck";
                 cmdline[i++] =  arg_repair;
                 cmdline[i++] = "-T";
 

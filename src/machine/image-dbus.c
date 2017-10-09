@@ -24,6 +24,7 @@
 #include "bus-label.h"
 #include "bus-util.h"
 #include "copy.h"
+#include "def.h"
 #include "dissect-image.h"
 #include "fd-util.h"
 #include "fileio.h"
@@ -301,7 +302,7 @@ static int directory_image_get_os_release(Image *image, char ***ret, sd_bus_erro
 
         r = chase_symlinks("/etc/os-release", image->path, CHASE_PREFIX_ROOT, &path);
         if (r == -ENOENT)
-                r = chase_symlinks("/usr/lib/os-release", image->path, CHASE_PREFIX_ROOT, &path);
+                r = chase_symlinks(NIX_OS_RELEASE, image->path, CHASE_PREFIX_ROOT, &path);
         if (r == -ENOENT)
                 return sd_bus_error_setf(error, SD_BUS_ERROR_FAILED, "Image does not contain OS release information");
         if (r < 0)
@@ -368,7 +369,7 @@ static int raw_image_get_os_release(Image *image, char ***ret, sd_bus_error *err
 
                 fd = open("/etc/os-release", O_RDONLY|O_CLOEXEC|O_NOCTTY);
                 if (fd < 0 && errno == ENOENT) {
-                        fd = open("/usr/lib/os-release", O_RDONLY|O_CLOEXEC|O_NOCTTY);
+                        fd = open(NIX_OS_RELEASE, O_RDONLY|O_CLOEXEC|O_NOCTTY);
                         if (fd < 0 && errno == ENOENT)
                                 _exit(EXIT_NOT_FOUND);
                 }

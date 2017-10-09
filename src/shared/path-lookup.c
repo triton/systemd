@@ -23,6 +23,7 @@
 #include <string.h>
 
 #include "alloc-util.h"
+#include "def.h"
 #include "fileio.h"
 #include "fs-util.h"
 #include "install.h"
@@ -116,17 +117,16 @@ static int user_data_dir(char **ret, const char *suffix) {
 }
 
 static const char* const user_data_unit_paths[] = {
-        "/usr/local/lib/systemd/user",
-        "/usr/local/share/systemd/user",
         USER_DATA_UNIT_PATH,
-        "/usr/lib/systemd/user",
-        "/usr/share/systemd/user",
+        NIX_SYSTEMD_MODULE "/lib/systemd/user",
+        NIX_SYSTEMD_MODULE "/share/systemd/user",
         NULL
 };
 
 static const char* const user_config_unit_paths[] = {
         USER_CONFIG_UNIT_PATH,
         "/etc/systemd/user",
+        "/etc/systemd-mutable/user",
         NULL
 };
 
@@ -139,7 +139,6 @@ static char** user_dirs(
                 const char *transient,
                 const char *persistent_control,
                 const char *runtime_control) {
-
         _cleanup_strv_free_ char **config_dirs = NULL, **data_dirs = NULL;
         _cleanup_free_ char *data_home = NULL;
         _cleanup_strv_free_ char **res = NULL;
@@ -570,15 +569,11 @@ int lookup_paths_init(
                                         persistent_config,
                                         SYSTEM_CONFIG_UNIT_PATH,
                                         "/etc/systemd/system",
+                                        "/etc/systemd-mutable/system",
                                         runtime_config,
                                         "/run/systemd/system",
                                         STRV_IFNOTNULL(generator),
-                                        "/usr/local/lib/systemd/system",
                                         SYSTEM_DATA_UNIT_PATH,
-                                        "/usr/lib/systemd/system",
-#if HAVE_SPLIT_USR
-                                        "/lib/systemd/system",
-#endif
                                         STRV_IFNOTNULL(generator_late),
                                         NULL);
                         break;
@@ -595,14 +590,11 @@ int lookup_paths_init(
                                         persistent_config,
                                         USER_CONFIG_UNIT_PATH,
                                         "/etc/systemd/user",
+                                        "/etc/systemd-mutable/user",
                                         runtime_config,
                                         "/run/systemd/user",
                                         STRV_IFNOTNULL(generator),
-                                        "/usr/local/lib/systemd/user",
-                                        "/usr/local/share/systemd/user",
                                         USER_DATA_UNIT_PATH,
-                                        "/usr/lib/systemd/user",
-                                        "/usr/share/systemd/user",
                                         STRV_IFNOTNULL(generator_late),
                                         NULL);
                         break;
@@ -846,7 +838,6 @@ char **generator_binary_paths(UnitFileScope scope) {
         case UNIT_FILE_SYSTEM:
                 return strv_new("/run/systemd/system-generators",
                                 "/etc/systemd/system-generators",
-                                "/usr/local/lib/systemd/system-generators",
                                 SYSTEM_GENERATOR_PATH,
                                 NULL);
 
@@ -854,7 +845,6 @@ char **generator_binary_paths(UnitFileScope scope) {
         case UNIT_FILE_USER:
                 return strv_new("/run/systemd/user-generators",
                                 "/etc/systemd/user-generators",
-                                "/usr/local/lib/systemd/user-generators",
                                 USER_GENERATOR_PATH,
                                 NULL);
 

@@ -43,17 +43,21 @@
 #define SIGNALS_CRASH_HANDLER SIGSEGV,SIGILL,SIGFPE,SIGBUS,SIGQUIT,SIGABRT
 #define SIGNALS_IGNORE SIGPIPE
 
+#define NIX_SYSTEM_SW "/run/current-system/sw"
+#define NIX_OS_RELEASE "/run/current-system/etc/os-release"
+#define NIX_LOCALE_MODULE "/run/current-system/module/locale"
+#define NIX_SYSTEMD_MODULE "/run/current-system/module/systemd"
+
 #if HAVE_SPLIT_USR
-#define KBD_KEYMAP_DIRS                         \
-        "/usr/share/keymaps/\0"                 \
-        "/usr/share/kbd/keymaps/\0"             \
-        "/usr/lib/kbd/keymaps/\0"               \
-        "/lib/kbd/keymaps/\0"
+#define KBD_KEYMAP_DIRS                            \
+        NIX_SYSTEMD_MODULE "/share/keymaps/\0"     \
+        NIX_SYSTEMD_MODULE "/share/kbd/keymaps/\0" \
+        NIX_SYSTEMD_MODULE "/lib/kbd/keymaps/\0"
 #else
-#define KBD_KEYMAP_DIRS                         \
-        "/usr/share/keymaps/\0"                 \
-        "/usr/share/kbd/keymaps/\0"             \
-        "/usr/lib/kbd/keymaps/\0"
+#define KBD_KEYMAP_DIRS                            \
+        NIX_SYSTEMD_MODULE "/share/keymaps/\0"     \
+        NIX_SYSTEMD_MODULE "/share/kbd/keymaps/\0" \
+        NIX_SYSTEMD_MODULE "/lib/kbd/keymaps/\0"
 #endif
 
 #define UNIX_SYSTEM_BUS_ADDRESS "unix:path=/var/run/dbus/system_bus_socket"
@@ -69,7 +73,7 @@
 #define NOTIFY_BUFFER_MAX PIPE_BUF
 
 #if HAVE_SPLIT_USR
-#  define _CONF_PATHS_SPLIT_USR(n) "/lib/" n "\0"
+#  define _CONF_PATHS_SPLIT_USR(n)
 #else
 #  define _CONF_PATHS_SPLIT_USR(n)
 #endif
@@ -78,11 +82,10 @@
  * suitable to pass to conf_files_list_nulstr() or config_parse_many_nulstr()
  * to implement drop-in directories for extending configuration
  * files. */
-#define CONF_PATHS_NULSTR(n)                    \
-        "/etc/" n "\0"                          \
-        "/run/" n "\0"                          \
-        "/usr/local/lib/" n "\0"                \
-        "/usr/lib/" n "\0"                      \
+#define CONF_PATHS_NULSTR(n)                 \
+        "/etc/" n "\0"                       \
+        "/run/" n "\0"                       \
+        NIX_SYSTEMD_MODULE "/lib/" n "\0"    \
         _CONF_PATHS_SPLIT_USR(n)
 
 #define LONG_LINE_MAX (1U*1024U*1024U)

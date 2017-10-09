@@ -25,6 +25,7 @@
 #include <unistd.h>
 
 #include "alloc-util.h"
+#include "def.h"
 #include "dirent-util.h"
 #include "fd-util.h"
 #include "fs-util.h"
@@ -45,13 +46,8 @@
 static const char prefixes[] =
         "/etc\0"
         "/run\0"
-        "/usr/local/lib\0"
-        "/usr/local/share\0"
-        "/usr/lib\0"
-        "/usr/share\0"
-#if HAVE_SPLIT_USR
-        "/lib\0"
-#endif
+        NIX_SYSTEMD_MODULE "/lib\0"
+        NIX_SYSTEMD_MODULE "/share\0"
         ;
 
 static const char suffixes[] =

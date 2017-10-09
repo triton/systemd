@@ -87,7 +87,13 @@ static inline bool IMAGE_IS_HIDDEN(const struct Image *i) {
 static inline bool IMAGE_IS_VENDOR(const struct Image *i) {
         assert(i);
 
-        return i->path && path_startswith(i->path, "/usr");
+        if (i->path && path_startswith(i->path, "/usr"))
+                return true;
+
+        if (i->path && path_startswith(i->path, "/nix"))
+                return true;
+
+        return false;
 }
 
 static inline bool IMAGE_IS_HOST(const struct Image *i) {

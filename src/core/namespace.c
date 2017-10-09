@@ -107,10 +107,6 @@ static const MountEntry protect_kernel_tunables_table[] = {
 
 /* ProtectKernelModules= option */
 static const MountEntry protect_kernel_modules_table[] = {
-#if HAVE_SPLIT_USR
-        { "/lib/modules",        INACCESSIBLE, true  },
-#endif
-        { "/usr/lib/modules",    INACCESSIBLE, true  },
 };
 
 /*
@@ -132,14 +128,14 @@ static const MountEntry protect_home_yes_table[] = {
 
 /* ProtectSystem=yes table */
 static const MountEntry protect_system_yes_table[] = {
-        { "/usr",                READONLY,     false },
+        { "/nix",                READONLY,     false },
         { "/boot",               READONLY,     true  },
         { "/efi",                READONLY,     true  },
 };
 
 /* ProtectSystem=full includes ProtectSystem=yes */
 static const MountEntry protect_system_full_table[] = {
-        { "/usr",                READONLY,     false },
+        { "/nix",                READONLY,     false },
         { "/boot",               READONLY,     true  },
         { "/efi",                READONLY,     true  },
         { "/etc",                READONLY,     false },

@@ -26,6 +26,7 @@
 
 #include "sd-journal.h"
 
+#include "def.h"
 #include "fd-util.h"
 #include "parse-util.h"
 #include "string-util.h"
@@ -145,7 +146,7 @@ int main(int argc, char *argv[]) {
         fd = -1;
 
         if (argc <= optind)
-                (void) execl("/bin/cat", "/bin/cat", NULL);
+                (void) execl(NIX_SYSTEM_SW "/bin/cat", NIX_SYSTEM_SW "/bin/cat", NULL);
         else
                 (void) execvp(argv[optind], argv + optind);
         r = -errno;

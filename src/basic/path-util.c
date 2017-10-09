@@ -31,6 +31,7 @@
 #include <libgen.h>
 #undef basename
 
+#include "def.h"
 #include "alloc-util.h"
 #include "extract-word.h"
 #include "fs-util.h"
@@ -588,6 +589,7 @@ static int binary_is_good(const char *binary) {
         return !PATH_IN_SET(d, "true"
                                "/bin/true",
                                "/usr/bin/true",
+                               NIX_SYSTEM_SW "/bin/true",
                                "/dev/null");
 }
 

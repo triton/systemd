@@ -32,6 +32,7 @@
 #include "btrfs-util.h"
 #include "chattr-util.h"
 #include "copy.h"
+#include "def.h"
 #include "dirent-util.h"
 #include "env-util.h"
 #include "fd-util.h"
@@ -55,8 +56,7 @@
 static const char image_search_path[] =
         "/var/lib/machines\0"
         "/var/lib/container\0" /* legacy */
-        "/usr/local/lib/machines\0"
-        "/usr/lib/machines\0";
+        NIX_SYSTEMD_MODULE "/lib/machines\0";
 
 Image *image_unref(Image *i) {
         if (!i)
@@ -81,7 +81,7 @@ static char **image_settings_path(Image *image) {
 
         fn = strjoina(image->name, ".nspawn");
 
-        FOREACH_STRING(s, "/etc/systemd/nspawn/", "/run/systemd/nspawn/") {
+        FOREACH_STRING(s, "/etc/systemd/nspawn/", "/etc/systemd-mutable/nspawn/", "/run/systemd/nspawn/") {
                 l[i] = strappend(s, fn);
                 if (!l[i])
                         return NULL;

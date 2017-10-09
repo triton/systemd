@@ -1881,7 +1881,7 @@ static int parse_line(const char *fname, unsigned line, const char *buffer) {
 
         case CREATE_SYMLINK:
                 if (!i.argument) {
-                        i.argument = strappend("/usr/share/factory/", i.path);
+                        i.argument = strappend(NIX_SYSTEM_SW "/share/factory/", i.path);
                         if (!i.argument)
                                 return log_oom();
                 }
@@ -1896,7 +1896,7 @@ static int parse_line(const char *fname, unsigned line, const char *buffer) {
 
         case COPY_FILES:
                 if (!i.argument) {
-                        i.argument = strappend("/usr/share/factory/", i.path);
+                        i.argument = strappend(NIX_SYSTEM_SW "/share/factory/", i.path);
                         if (!i.argument)
                                 return log_oom();
                 } else if (!path_is_absolute(i.argument)) {

@@ -30,6 +30,7 @@
 #include "sd-hwdb.h"
 
 #include "alloc-util.h"
+#include "def.h"
 #include "fd-util.h"
 #include "hashmap.h"
 #include "hwdb-internal.h"
@@ -316,10 +317,7 @@ static int trie_search_f(sd_hwdb *hwdb, const char *search) {
 static const char hwdb_bin_paths[] =
         "/etc/systemd/hwdb/hwdb.bin\0"
         "/etc/udev/hwdb.bin\0"
-        "/usr/lib/systemd/hwdb/hwdb.bin\0"
-#if HAVE_SPLIT_USR
-        "/lib/systemd/hwdb/hwdb.bin\0"
-#endif
+        NIX_SYSTEMD_MODULE "/lib/systemd/hwdb/hwdb.bin\0"
         UDEVLIBEXECDIR "/hwdb.bin\0";
 
 _public_ int sd_hwdb_new(sd_hwdb **ret) {

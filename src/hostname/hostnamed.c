@@ -114,7 +114,7 @@ static int context_read_data(Context *c) {
                            "CPE_NAME", &c->data[PROP_OS_CPE_NAME],
                            NULL);
         if (r == -ENOENT)
-                r = parse_env_file("/usr/lib/os-release", NEWLINE,
+                r = parse_env_file(NIX_OS_RELEASE, NEWLINE,
                                    "PRETTY_NAME", &c->data[PROP_OS_PRETTY_NAME],
                                    "CPE_NAME", &c->data[PROP_OS_CPE_NAME],
                                    NULL);

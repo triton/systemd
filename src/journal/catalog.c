@@ -30,6 +30,7 @@
 #include "alloc-util.h"
 #include "catalog.h"
 #include "conf-files.h"
+#include "def.h"
 #include "fd-util.h"
 #include "fileio.h"
 #include "hashmap.h"
@@ -44,8 +45,7 @@
 #include "util.h"
 
 const char * const catalog_file_dirs[] = {
-        "/usr/local/lib/systemd/catalog/",
-        "/usr/lib/systemd/catalog/",
+        NIX_SYSTEMD_MODULE "/lib/systemd/catalog/",
         NULL
 };
 

@@ -25,6 +25,7 @@
 #include "alloc-util.h"
 #include "ask-password-api.h"
 #include "copy.h"
+#include "def.h"
 #include "fd-util.h"
 #include "fileio.h"
 #include "fs-util.h"
@@ -87,7 +88,7 @@ static void print_welcome(void) {
                            NULL);
         if (r == -ENOENT) {
 
-                os_release = prefix_roota(arg_root, "/usr/lib/os-release");
+                os_release = prefix_roota(arg_root, NIX_OS_RELEASE);
                 r = parse_env_file(os_release, NEWLINE,
                                    "PRETTY_NAME", &pretty_name,
                                    NULL);
@@ -347,7 +348,7 @@ static int process_timezone(void) {
         if (isempty(arg_timezone))
                 return 0;
 
-        e = strjoina("../usr/share/zoneinfo/", arg_timezone);
+        e = strjoina("../etc/zoneinfo/", arg_timezone);
 
         mkdir_parents(etc_localtime, 0755);
         if (symlink(e, etc_localtime) < 0)
