@@ -340,6 +340,7 @@ AC_CHECK_DECLS([
 #include <sys/mount.h>
 #include <fcntl.h>
 #include <sched.h>
+#incldue <stdio.h>
 #include <string.h>
 #include <linux/loop.h>
 #include <linux/random.h>
